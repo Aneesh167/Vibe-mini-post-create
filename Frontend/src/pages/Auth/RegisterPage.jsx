@@ -9,7 +9,6 @@ const RegisterPage = () => {
     username: "",
     email: "",
     password: "",
-    confirm: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -24,8 +23,6 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.password !== form.confirm)
-      return setError("Passwords do not match.");
     if (form.password.length < 6)
       return setError("Password must be at least 6 characters.");
     setLoading(true);
@@ -44,37 +41,6 @@ const RegisterPage = () => {
       setLoading(false);
     }
   };
-
-  const fields = [
-    {
-      name: "username",
-      label: "Username",
-      type: "text",
-      placeholder: "yourname",
-      autoComplete: "username",
-    },
-    {
-      name: "email",
-      label: "Email",
-      type: "email",
-      placeholder: "you@example.com",
-      autoComplete: "email",
-    },
-    {
-      name: "password",
-      label: "Password",
-      type: showPass ? "text" : "password",
-      placeholder: "••••••••",
-      autoComplete: "new-password",
-    },
-    {
-      name: "confirm",
-      label: "Confirm Password",
-      type: showPass ? "text" : "password",
-      placeholder: "••••••••",
-      autoComplete: "new-password",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-[#0d0f14] flex items-center justify-center px-4 py-16 relative overflow-hidden">
@@ -127,74 +93,116 @@ const RegisterPage = () => {
           className="bg-[#13151c] border border-white/[0.07] rounded-sm p-8"
         >
           <form onSubmit={handleSubmit} className="space-y-5">
-            {fields.map((field, i) => (
-              <motion.div
-                key={field.name}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + i * 0.06 }}
-              >
-                <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">
-                  {field.label}
-                </label>
-                <div className="relative">
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={form[field.name]}
-                    onChange={handleChange}
-                    placeholder={field.placeholder}
-                    autoComplete={field.autoComplete}
-                    required
-                    className="w-full bg-white/[0.04] border border-white/[0.08] rounded-sm px-4 py-3
-                      text-sm text-white placeholder-white/20 outline-none
-                      focus:border-amber-400/40 focus:bg-white/[0.06] transition-all duration-200"
-                  />
-                  {field.name === "password" && (
-                    <button
-                      type="button"
-                      onClick={() => setShowPass(!showPass)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+            {/* Username */}
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">
+                Username
+              </label>
+              <input
+                type="text"
+                name="username"
+                value={form.username}
+                onChange={handleChange}
+                placeholder="yourname"
+                autoComplete="username"
+                required
+                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-sm px-4 py-3
+                  text-sm text-white placeholder-white/20 outline-none
+                  focus:border-amber-400/40 focus:bg-white/[0.06] transition-all duration-200"
+              />
+            </motion.div>
+
+            {/* Email */}
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.16 }}
+            >
+              <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                autoComplete="email"
+                required
+                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-sm px-4 py-3
+                  text-sm text-white placeholder-white/20 outline-none
+                  focus:border-amber-400/40 focus:bg-white/[0.06] transition-all duration-200"
+              />
+            </motion.div>
+
+            {/* Password */}
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.22 }}
+            >
+              <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  required
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-sm px-4 py-3
+                    text-sm text-white placeholder-white/20 outline-none
+                    focus:border-amber-400/40 focus:bg-white/[0.06] transition-all duration-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+                >
+                  {showPass ? (
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
                     >
-                      {showPass ? (
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                          />
-                        </svg>
-                      )}
-                    </button>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
                   )}
-                </div>
-              </motion.div>
-            ))}
+                </button>
+              </div>
+            </motion.div>
 
             {/* Password strength hint */}
             {form.password && (
