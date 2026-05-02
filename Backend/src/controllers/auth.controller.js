@@ -10,10 +10,10 @@ import { sessionModel } from "../models/session.model.js";
 
 const cookieOptions = {
   httpOnly: true,
-  secure: false, // Set to true in production with HTTPS
+  secure: true, // Set to true in production with HTTPS
   sameSite: "lax", // Using "lax" for better cross-origin support in development
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  path: "/",
+
 };
 
 const clearSessions = async () => {
