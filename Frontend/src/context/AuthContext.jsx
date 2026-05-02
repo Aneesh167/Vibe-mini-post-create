@@ -26,23 +26,30 @@ export const AuthProvider = ({ children }) => {
       try {
         // Check if user exists in localStorage
         const storedUser = localStorage.getItem("user");
-        if (storedUser) {
+        const storedToken = localStorage.getItem("accessToken");
+
+        if (storedUser && storedToken) {
           setUser(JSON.parse(storedUser));
+          setAccessToken(storedToken);
         }
 
-        // Try to refresh token
-        const data = await refreshToken();
-        setAccessToken(data.accessToken);
+        // Only try to refresh if we have a stored token
+        if (storedToken) {
+          const data = await refreshToken();
+          setAccessToken(data.accessToken);
 
-        // If we don't have user from localStorage, fetch profile
-        if (!storedUser) {
-          const profile = await getProfile();
-          setUser(profile.user);
-          localStorage.setItem("user", JSON.stringify(profile.user));
+          // Update user data if needed
+          if (!storedUser) {
+            const profile = await getProfile();
+            setUser(profile.user);
+            localStorage.setItem("user", JSON.stringify(profile.user));
+          }
         }
       } catch (error) {
-        console.log("not logged in");
+        console.log("Token refresh failed, clearing auth data");
         localStorage.removeItem("user");
+        localStorage.removeItem("accessToken");
+        setUser(null);
         setAccessToken(null);
       } finally {
         setLoading(false);

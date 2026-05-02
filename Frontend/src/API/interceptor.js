@@ -13,7 +13,8 @@ export const setAccessToken = (token) => {
 };
 
 api.interceptors.request.use((config) => {
-  if (accessToken) {
+  // Don't add token to refresh token requests to avoid infinite loops
+  if (accessToken && !config.url?.includes("/auth/refresh-token")) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
@@ -26,18 +27,28 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Only retry once and not for refresh token requests
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url?.includes("/auth/refresh-token")
+    ) {
       originalRequest._retry = true;
 
       try {
         const res = await refreshToken();
         accessToken = res.accessToken;
+        localStorage.setItem("accessToken", accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 
         return api(originalRequest);
       } catch (err) {
         console.error("Token refresh failed:", err);
+        // Clear tokens on refresh failure
+        accessToken = null;
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
       }
     }
 
