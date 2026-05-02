@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
-import { getAllPosts } from "../../api/post.api";
+import { getAllPosts } from "../../API/post.api";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import PostCard from "../../components/PostCard";
