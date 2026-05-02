@@ -72,6 +72,7 @@ export const registerUser = async (req, res) => {
         username: user.username,
       },
       accessToken,
+      refreshToken, // Include refresh token in response
     });
   } catch (error) {
     return res
@@ -119,6 +120,7 @@ export const loginUser = async (req, res) => {
         email: user.email,
       },
       accessToken,
+      refreshToken, // Include refresh token in response
     });
   } catch (error) {
     return res
@@ -128,29 +130,44 @@ export const loginUser = async (req, res) => {
 };
 export const refreshToken = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    let refreshToken = req.cookies.refreshToken;
+
+    // Also check Authorization header for refresh token
+    if (!refreshToken) {
+      const authHeader = req.headers.authorization;
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        refreshToken = authHeader.split(" ")[1];
+      }
+    }
+
     if (!refreshToken) {
       return res.status(401).json({ message: "Unauthorized" });
     }
+
     const decoded = verifyToken(refreshToken);
     const userId = decoded.id;
     if (!userId) {
       return res.status(401).json({ message: "Invalid token payload" });
     }
+
     const refreshTokenHash = tokenHash(refreshToken);
     const session = await sessionModel.findOne({
       refreshTokenHash,
       revoked: false,
     });
-    const sessionId = session.id || session._id;
+
     if (!session) {
       return res.status(400).json({ message: "Invalid session" });
     }
+
+    const sessionId = session.id || session._id;
     const accessToken = accessTokenCreate(userId, sessionId);
     const newRefreshToken = refreshAccessToken(userId);
     const newRefreshTokenHash = tokenHash(newRefreshToken);
+
     session.refreshTokenHash = newRefreshTokenHash;
     await session.save();
+
     res.cookie("refreshToken", newRefreshToken, cookieOptions);
 
     return res.status(200).json({ accessToken });

@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setAccessToken(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   };
 
   useEffect(() => {
