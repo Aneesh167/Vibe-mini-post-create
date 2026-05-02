@@ -170,7 +170,7 @@ export const refreshToken = async (req, res) => {
 
     res.cookie("refreshToken", newRefreshToken, cookieOptions);
 
-    return res.status(200).json({ accessToken, refreshToken: newRefreshToken });
+    return res.status(200).json({ accessToken });
   } catch (error) {
     return res
       .status(500)
