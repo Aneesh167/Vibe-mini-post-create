@@ -10,9 +10,10 @@ import { sessionModel } from "../models/session.model.js";
 
 const cookieOptions = {
   httpOnly: true,
-  secure: true,
-  sameSite: "strict",
+  secure: false, // Set to true in production with HTTPS
+  sameSite: "lax", // Using "lax" for better cross-origin support in development
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: "/",
 };
 
 const clearSessions = async () => {
@@ -177,7 +178,7 @@ export const logoutUser = async (req, res) => {
     session.revoked = true;
     session.revokedAt = new Date();
     await session.save();
-    res.clearCookie("refreshToken");
+    res.clearCookie("refreshToken", cookieOptions);
     return res.status(200).json({ message: "Logout successfull" });
   } catch (error) {
     return res
@@ -185,6 +186,7 @@ export const logoutUser = async (req, res) => {
       .json({ message: "Internal server error", error: error.message });
   }
 };
+
 export const logoutAllUser = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
@@ -206,7 +208,7 @@ export const logoutAllUser = async (req, res) => {
         revokedAt: new Date(),
       },
     );
-    res.clearCookie("refreshToken");
+    res.clearCookie("refreshToken", cookieOptions);
     return res
       .status(200)
       .json({ message: "Logout from all devices successfull" });
