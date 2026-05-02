@@ -34,5 +34,11 @@ export const refreshToken = async () => {
   }
 
   const res = await api.post("/auth/refresh-token", {}, { headers });
+
+  // Store new refresh token if received
+  if (res.data.refreshToken) {
+    localStorage.setItem("refreshToken", res.data.refreshToken);
+  }
+
   return res.data;
 };

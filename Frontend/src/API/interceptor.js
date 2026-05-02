@@ -44,11 +44,12 @@ api.interceptors.response.use(
 
         return api(originalRequest);
       } catch (err) {
-        console.error("Token refresh failed:", err);
+        console.error("Token refresh failed, clearing auth data");
         // Clear tokens on refresh failure
         accessToken = null;
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
+        localStorage.removeItem("refreshToken");
       }
     }
 
