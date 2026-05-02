@@ -13,21 +13,37 @@ export const AuthProvider = ({ children }) => {
   const login = (user, token) => {
     setUser(user);
     setAccessToken(token);
+    localStorage.setItem("user", JSON.stringify(user));
   };
   const logout = () => {
     setUser(null);
     setAccessToken(null);
+    localStorage.removeItem("user");
   };
 
   useEffect(() => {
     const checkLogin = async () => {
       try {
+        // Check if user exists in localStorage
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+
+        // Try to refresh token
         const data = await refreshToken();
         setAccessToken(data.accessToken);
-        const profile = await getProfile();
-        setUser(profile.user);
+
+        // If we don't have user from localStorage, fetch profile
+        if (!storedUser) {
+          const profile = await getProfile();
+          setUser(profile.user);
+          localStorage.setItem("user", JSON.stringify(profile.user));
+        }
       } catch (error) {
         console.log("not logged in");
+        localStorage.removeItem("user");
+        setAccessToken(null);
       } finally {
         setLoading(false);
       }

@@ -1,10 +1,15 @@
 import { refreshToken } from "./auth.api";
 import { api } from "./axios";
 
-let accessToken = null;
+let accessToken = localStorage.getItem("accessToken") || null;
 
 export const setAccessToken = (token) => {
   accessToken = token;
+  if (token) {
+    localStorage.setItem("accessToken", token);
+  } else {
+    localStorage.removeItem("accessToken");
+  }
 };
 
 api.interceptors.request.use((config) => {
