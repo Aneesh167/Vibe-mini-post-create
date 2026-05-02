@@ -35,7 +35,7 @@ const CreatePost = ({ onSuccess }) => {
     try {
       const fd = new FormData();
       fd.append("title", form.title);
-      fd.append("content", form.content);
+      fd.append("description", form.content);
       if (image) fd.append("image", image);
       const data = await createPost(fd);
       setSuccess(true);
@@ -59,14 +59,18 @@ const CreatePost = ({ onSuccess }) => {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="bg-[#13151c] border border-white/[0.07] rounded-sm p-8"
     >
-      <h2 className="text-xl font-semibold text-white mb-6 tracking-tight"
-        style={{ fontFamily: "'Playfair Display', serif" }}>
+      <h2
+        className="text-xl font-semibold text-white mb-6 tracking-tight"
+        style={{ fontFamily: "'Playfair Display', serif" }}
+      >
         Share something
       </h2>
 
       {/* Title */}
       <div className="mb-5">
-        <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">Title</label>
+        <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">
+          Title
+        </label>
         <input
           type="text"
           value={form.title}
@@ -80,7 +84,9 @@ const CreatePost = ({ onSuccess }) => {
 
       {/* Content */}
       <div className="mb-5">
-        <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">Content</label>
+        <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">
+          Content
+        </label>
         <textarea
           rows={4}
           value={form.content}
@@ -94,7 +100,9 @@ const CreatePost = ({ onSuccess }) => {
 
       {/* Image upload */}
       <div className="mb-6">
-        <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">Image</label>
+        <label className="block text-xs text-white/40 uppercase tracking-widest mb-2">
+          Image
+        </label>
         <div
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
@@ -112,15 +120,33 @@ const CreatePost = ({ onSuccess }) => {
                 exit={{ opacity: 0 }}
                 className="relative"
               >
-                <img src={preview} alt="Preview" className="max-h-48 mx-auto rounded-sm object-cover" />
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="max-h-48 mx-auto rounded-sm object-cover"
+                />
                 <button
                   type="button"
-                  onClick={(e) => { e.stopPropagation(); setImage(null); setPreview(null); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setImage(null);
+                    setPreview(null);
+                  }}
                   className="absolute top-2 right-2 w-7 h-7 bg-black/60 rounded-sm flex items-center justify-center
                     text-white/60 hover:text-white hover:bg-black/80 transition-all"
                 >
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </motion.div>
@@ -132,14 +158,32 @@ const CreatePost = ({ onSuccess }) => {
                 exit={{ opacity: 0 }}
                 className="flex flex-col items-center gap-2"
               >
-                <svg className="w-8 h-8 text-white/20 group-hover:text-amber-400/40 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <svg
+                  className="w-8 h-8 text-white/20 group-hover:text-amber-400/40 transition-colors"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
                 </svg>
-                <p className="text-xs text-white/30">Drop image or click to upload</p>
+                <p className="text-xs text-white/30">
+                  Drop image or click to upload
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
-          <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFile}
+            className="hidden"
+          />
         </div>
       </div>
 
