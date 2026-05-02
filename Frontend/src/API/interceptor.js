@@ -1,16 +1,14 @@
 import { refreshToken } from "./auth.api";
 import { api } from "./axios";
 
-let accessToken = localStorage.getItem("accessToken") || null;
+// Keep access token in memory only - no localStorage
+let accessToken = null;
 
 export const setAccessToken = (token) => {
   accessToken = token;
-  if (token) {
-    localStorage.setItem("accessToken", token);
-  } else {
-    localStorage.removeItem("accessToken");
-  }
 };
+
+export const getAccessToken = () => accessToken;
 
 api.interceptors.request.use((config) => {
   // Don't add token to refresh token requests to avoid infinite loops
@@ -38,17 +36,14 @@ api.interceptors.response.use(
       try {
         const res = await refreshToken();
         accessToken = res.accessToken;
-        localStorage.setItem("accessToken", accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 
         return api(originalRequest);
       } catch (err) {
         console.error("Token refresh failed:", err);
-        // Clear tokens on refresh failure
+        // Clear token on refresh failure
         accessToken = null;
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
       }
     }
 
