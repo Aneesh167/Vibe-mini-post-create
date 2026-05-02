@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { getAllPosts } from "../../api/post.api";
+import { getAllPosts } from "../../API/post.api";
 import PostCard from "../../components/PostCard";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -25,7 +25,9 @@ const FeedPage = () => {
     }
   };
 
-  useEffect(() => { fetchPosts(); }, []);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const handleDelete = (id) => {
     setPosts((prev) => prev.filter((p) => p._id !== id));
@@ -48,8 +50,10 @@ const FeedPage = () => {
               <p className="text-xs text-amber-400 uppercase tracking-widest mb-2 font-medium">
                 Discover
               </p>
-              <h1 className="text-4xl font-semibold text-white"
-                style={{ fontFamily: "'Playfair Display', serif" }}>
+              <h1
+                className="text-4xl font-semibold text-white"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
                 Your Feed
               </h1>
             </div>
@@ -59,17 +63,25 @@ const FeedPage = () => {
                 size="sm"
                 onClick={fetchPosts}
                 icon={
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
                   </svg>
                 }
               >
                 Refresh
               </Button>
               <Link to="/create">
-                <Button size="sm">
-                  + New Post
-                </Button>
+                <Button size="sm">+ New Post</Button>
               </Link>
             </div>
           </motion.div>
@@ -94,7 +106,9 @@ const FeedPage = () => {
               className="py-24 text-center"
             >
               <p className="text-red-400 mb-4">{error}</p>
-              <Button variant="ghost" onClick={fetchPosts}>Try Again</Button>
+              <Button variant="ghost" onClick={fetchPosts}>
+                Try Again
+              </Button>
             </motion.div>
           ) : posts.length === 0 ? (
             <motion.div
@@ -103,12 +117,24 @@ const FeedPage = () => {
               className="py-24 text-center"
             >
               <div className="w-16 h-16 bg-amber-400/5 border border-amber-400/10 rounded-sm mx-auto flex items-center justify-center mb-5">
-                <svg className="w-8 h-8 text-amber-400/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                <svg
+                  className="w-8 h-8 text-amber-400/30"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                  />
                 </svg>
               </div>
               <p className="text-white/40 mb-2 text-sm">No posts yet</p>
-              <p className="text-white/20 text-xs mb-6">Be the first to share something</p>
+              <p className="text-white/20 text-xs mb-6">
+                Be the first to share something
+              </p>
               <Link to="/create">
                 <Button>Create First Post</Button>
               </Link>
