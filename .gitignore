@@ -1,0 +1,277 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# IntelliJ based IDEs
+.idea
+
+# Finder (MacOS)
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
+
+# Temporary folders
+tmp/
+temp/
+
+# Logs
+logs
+*.log
+
+# Build directories
+build/
+dist/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Secrets
+secrets/
+*.key
+*.pem
+*.crt
+*.cer
+
+# Miscellaneous
+.cache/
+.tmp/
+.temp/
+
+# Frontend specific (Vite/React)
+.vite/
+public/uploads/
+src/**/*.test.js
+src/**/*.spec.js
+
+# Backend specific (Node.js)
+logs/
+*.log
+.env
+.DS_Store
+node_modules/
+dist/
+build/
+
+# If using PM2
+ecosystem.config.js
+.pm2/
+
+# If using Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# If using Kubernetes
+k8s/
+*.yaml
+*.yml
+
+# If using Terraform
+terraform/
+*.tfstate
+*.tfstate.backup
+
+# If using Ansible
+ansible/
+*.retry
+
+# CI/CD
+.github/workflows/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Testing
+coverage/
+.nyc_output/
+.coverage
+*.cover
+test-results/
+junit.xml
+
+# Linting
+.eslintcache
+.stylelintcache
+
+# Prettier
+.prettierignore
+
+# Editor directories
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS specific
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Network files
+.nfs*
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.conda/
+conda/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user/
+
+# MATLAB
+*.m~
+*.mat
+
+# Stata
+*.dta
+*.do
+*.log
+
+# SAS
+*.sas7bdat
+*.sas7bcat
+*.sas7baud
+*.lst
+
+# SPSS
+*.sav
+*.por
+
+# End of .gitignore
